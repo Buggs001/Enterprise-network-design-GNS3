@@ -51,6 +51,11 @@ This project demonstrates practical skills in designing, configuring, and troubl
      VLAN 10           VLAN 20        VLAN 30        VLAN 40        VLAN 50
  IT & Mgmt Dept    Finance & HR    Sales & Mktg    Voice Services   Guest Services
 
+### 🖼️ Topology Diagram (GNS3)
+
+![Enterprise-network-design-GNS3](Topology/Office Network Topology.png)
+
+
 ✅ 4️⃣ Technologies Used
 
 VLANs & Inter-VLAN Routing (SVIs on Core)
