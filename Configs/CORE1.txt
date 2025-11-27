@@ -1,0 +1,288 @@
+CORE1#sh run
+Building configuration...
+
+Current configuration : 6633 bytes
+!
+! Last configuration change at 13:21:53 UTC Wed Nov 26 2025
+!
+version 15.0
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname CORE1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL
+logging buffered 50000
+logging console discriminator EXCESS
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+no ip cef
+ip name-server 8.8.8.8
+ip name-server 1.1.1.1
+ip dhcp excluded-address 192.168.10.1 192.168.10.9
+ip dhcp excluded-address 192.168.20.1 192.168.20.9
+ip dhcp excluded-address 192.168.30.1 192.168.30.9
+ip dhcp excluded-address 192.168.40.1 192.168.40.9
+ip dhcp excluded-address 192.168.50.1 192.168.50.9
+!
+ip dhcp pool IT_VLAN10
+   network 192.168.10.0 255.255.255.0
+   default-router 192.168.10.1
+   dns-server 8.8.8.8 1.1.1.1
+!
+ip dhcp pool FINANCE_VLAN20
+   network 192.168.20.0 255.255.255.0
+   default-router 192.168.20.1
+   dns-server 8.8.8.8 1.1.1.1
+!
+ip dhcp pool SALES_VLAN30
+   network 192.168.30.0 255.255.255.0
+   default-router 192.168.30.1
+   dns-server 8.8.8.8 1.1.1.1
+!
+ip dhcp pool VOICE_VLAN40
+   network 192.168.40.0 255.255.255.0
+   default-router 192.168.40.1
+   dns-server 8.8.8.8 1.1.1.1
+!
+ip dhcp pool GUEST_VLAN50
+   network 192.168.50.0 255.255.255.0
+   default-router 192.168.50.1
+   dns-server 8.8.8.8 1.1.1.1
+!
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 10,20 priority 4096
+!
+vlan internal allocation policy ascending
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ description Link to CORE2
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+!
+interface Port-channel2
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+!
+interface Port-channel3
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+!
+interface Port-channel4
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+!
+interface Port-channel5
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+!
+interface Port-channel6
+ switchport
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+!
+interface Ethernet0/0
+ no switchport
+ ip address 192.168.255.2 255.255.255.252
+ duplex auto
+!
+interface Ethernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+ duplex auto
+ channel-group 1 mode active
+!
+interface Ethernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+ duplex auto
+ channel-group 1 mode active
+!
+interface Ethernet0/3
+ duplex auto
+!
+interface Ethernet1/0
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+ duplex auto
+ channel-group 6 mode active
+!
+interface Ethernet1/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ switchport mode trunk
+ duplex auto
+ channel-group 6 mode active
+!
+interface Ethernet1/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 2 mode active
+!
+interface Ethernet1/3
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 2 mode active
+!
+interface Ethernet2/0
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 3 mode active
+!
+interface Ethernet2/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 3 mode active
+!
+interface Ethernet2/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 4 mode active
+!
+interface Ethernet2/3
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 4 mode active
+!
+interface Ethernet3/0
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 5 mode active
+!
+interface Ethernet3/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20,30,40,50
+ duplex auto
+ channel-group 5 mode active
+!
+interface Ethernet3/2
+ duplex auto
+!
+interface Ethernet3/3
+ duplex auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ description gateway for  IT & Management
+ ip address 192.168.10.2 255.255.255.0
+ standby 10 ip 192.168.10.1
+ standby 10 priority 110
+ standby 10 preempt
+!
+interface Vlan20
+ description Gateway for Finance & HR
+ ip address 192.168.20.2 255.255.255.0
+ ip access-group HR-FIN-PROTECT in
+ standby 20 ip 192.168.20.1
+ standby 20 priority 110
+ standby 20 preempt
+!
+interface Vlan30
+ description Gateway to Sales & Marketing
+ ip address 192.168.30.2 255.255.255.0
+ standby 30 ip 192.168.30.1
+!
+interface Vlan40
+ description Voice & Services
+ ip address 192.168.40.2 255.255.255.0
+ standby 40 ip 192.168.40.1
+!
+interface Vlan50
+ ip address 192.168.50.2 255.255.255.0
+ ip access-group GUEST-INTERNET-ONLY in
+ standby 50 ip 192.168.50.1
+!
+router ospf 1
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 192.168.40.0 0.0.0.255 area 0
+ network 192.168.50.0 0.0.0.255 area 0
+ network 192.168.255.0 0.0.0.3 area 0
+!
+!
+ip forward-protocol nd
+no ip http server
+!
+!
+!
+ip access-list standard IT-MGMT-SSH
+ permit 192.168.10.0 0.0.0.255
+ deny   any
+!
+ip access-list extended GUEST-INTERNET-ONLY
+ remark Block Guest VLAN from internal subnets
+ deny   ip 192.168.50.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny   ip 192.168.50.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny   ip 192.168.50.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny   ip 192.168.50.0 0.0.0.255 192.168.40.0 0.0.0.255
+ permit ip 192.168.50.0 0.0.0.255 any
+ip access-list extended HR-FIN-PROTECT
+ remark Block unauthorized access to Finance & HR
+ deny   ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny   ip 192.168.40.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny   ip 192.168.50.0 0.0.0.255 192.168.20.0 0.0.0.255
+ permit ip any any
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ access-class IT-MGMT-SSH in
+ login
+ transport input ssh
+!
+end
+
