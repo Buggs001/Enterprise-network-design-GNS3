@@ -52,7 +52,9 @@ This project demonstrates practical skills in designing, configuring, and troubl
  IT & Mgmt Dept    Finance & HR    Sales & Mktg    Voice Services   Guest Services
 
 ### 🖼️ Topology Diagram (GNS3)
-![Office Network Topology](Topology/OfficeNetworkTopology.png)
+
+<img src="Topology/OfficeNetworkTopology.png" width="800">
+
 
 
 ✅ 4️⃣ Technologies Used
