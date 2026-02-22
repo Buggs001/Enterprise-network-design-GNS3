@@ -53,7 +53,7 @@ This project demonstrates practical skills in designing, configuring, and troubl
 
 ### 🖼️ Topology Diagram (GNS3)
 
-OfficeNetworkTopology.png
+Topology/OfficeNetworkTopology.png
 
 
 ✅ 4️⃣ Technologies Used
