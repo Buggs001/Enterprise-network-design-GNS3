@@ -53,8 +53,7 @@ This project demonstrates practical skills in designing, configuring, and troubl
 
 ### 🖼️ Topology Diagram (GNS3)
 
-<img src="https://raw.githubusercontent.com/Buggs001/Enterprise-network-design-GNS3/refs/heads/main/Topology/OfficeNetworkTopology.png" width="800">
-
+OfficeNetworkTopology.png
 
 
 ✅ 4️⃣ Technologies Used
